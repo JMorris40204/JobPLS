@@ -1,0 +1,65 @@
+<!-- <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+  <img class="w3-image" src="app/images/sky.jpg" alt="sky" width="1500" height="800">
+  <div class="w3-display-middle w3-margin-top w3-center">
+    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b></b></span> <span class="w3-hide-small w3-text-light-grey">Congrats on taking the next step towards your career!</span></h1>
+  </div>
+</header> -->
+
+<div id='frontPageDisplay'class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-middle">
+    <h1 id="headerText"class="w3-jumbo w3-animate-top">Congrats on taking the next step towards your career!</h1>
+    <hr class="w3-border-grey" style="margin:auto;width:40%">
+  </div>
+</div>
+<h2 id="welcome" *ngIf="userFirstName"><span class="badge badge-secondary">dfgjdfj</span>Welcome {{ userFirstName }}</h2>
+<div class="container" id="search-container">
+  <div class="searchBox  row justify-content-center">
+    <label id="searchLabel" class="col-auto text-primary" for="search">Search Jobs:</label>
+    <input type="search" class="form-control mb-2 col-auto" id="search" placeholder="Search Job Listings">
+    <div class="row justify-content-center">
+    <button type="button" class="btn btn-primary col-md-2 col-sm-4">
+      Search<i class="fas fa-search"></i>
+    </button>
+  </div>
+   
+  </div>
+</div>
+<br>
+<!-- Generate postings dynamically for jobs -->
+<div class="container" id="list-of-jobs">
+  <div class="job-card-container" *ngFor="let JobPost of JobPosts">
+    <div class="row job-card container" (click)="showJobModal(JobPost)">
+      <h3 class="row text-primary">{{JobPost.jobTitle}}</h3>
+      <div class="row comp-pay justify-content-start">
+        <h4 class="text-secondary pay-range col-auto">${{JobPost.minPayRange}} - ${{JobPost.maxPayRange}} |
+          {{JobPost.jobCompany}} | {{JobPost.jobLocation}}</h4>
+      </div>
+    </div>
+    <div id="spacer"></div>
+    <!-- Modal -->
+    <div id="jobModal{{JobPost.id}}" class="myModal container-fluid">
+      <div class="modal-content" id="modalContent">
+        <div class="modal-header row justify-content-between">
+          <h2 class="modal-title col-10">{{JobPost.jobTitle}}</h2>
+          <span class="closeBtn col-auto ml-auto" id="closeBtn" (click)="closeModal(JobPost)">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>{{JobPost.jobCompany}}</p>
+          <p>{{JobPost.jobLocation}}</p>
+          <p>${{JobPost.minPayRange}} - ${{JobPost.maxPayRange}}</p>
+          <p>{{JobPost.jobDescription}}</p>
+          
+        </div>
+        <div class="modal-footer row justify-content-center">
+          <a id="applyLink{{JobPost.id}}" target="_blank"><button id="applybtn" class="col-sm-auto col-lg-2">Apply Now</button></a>
+          <button class="btn" *ngIf="userFirstName" (click)="deleteJob(JobPost)" > Delete Job </button>
+          <button class="btn" *ngIf="userFirstName" (click)="editJob(JobPost)" > Edit Job </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<footer id="page-container">
+<p>Team Kairos Est. 2022</p>
+</footer>
